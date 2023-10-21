@@ -1,2 +1,2 @@
 # Diagramas de classe
-Coloque aqui todas as versões do seu diagrama de classes. Cada versão deve começar com um número de dois dígitos, na ordem crescente.
+No mesmo diretório, segue o PNG de documentação para o diagrama de classes, contendo, de acordo com o requisito, uso de interface e herança
