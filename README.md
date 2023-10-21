@@ -1,16 +1,15 @@
-# Nome do projeto
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+# Sistema de gerenciamente de biblioteca
+Sistema para gerenciar os itens e os emprestimos para clientes de itens pertencentes a uma bibilioteca
 
 ## Alunos integrantes da equipe
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 4
-* Nome completo do aluno 4
+* Gustavo Henrique dos Santos Riegert
+* Marcelo Aguilar Araújo Dalmeida
+* Marco Antonio Miranda Ferreira
+* Marcus Viniccius Souza de Freitas
+* Pedro Henrique de Paiva Couto
+
 
 ## Professor responsável 
 
-* Nome completo do professor 1
-
+* Luiz Henrique da Costa Silva
