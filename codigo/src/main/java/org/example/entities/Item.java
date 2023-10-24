@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public abstract class Item implements Comparable<Item>{
-    UUID id;
-    private String titulo;
 
+    private UUID id;
+    private String titulo;
     private int quantidade;
     private String tipo;
     private String autor;
