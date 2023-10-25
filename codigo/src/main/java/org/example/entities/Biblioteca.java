@@ -180,6 +180,11 @@ public class Biblioteca {
         }
 
         cliente.getEmprestados().add((Emprestavel) emprestaveis);
+
+        for (Emprestavel emp : emprestaveis){
+            itens.remove(((Emprestavel) emprestaveis).getTitulo());
+        }
+
         return "Item emprestado com sucesso";
     }
 
