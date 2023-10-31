@@ -46,7 +46,11 @@ public class Biblioteca {
             case "Revistas" :
                 new NEmprestavel(nome, quantidade, tipo, autor, ano);
             case "Livros" :
+                new Emprestavel(nome, quantidade, tipo, autor, ano);
+                break;
             case "CDs" :
+                new Emprestavel(nome, quantidade, tipo, autor, ano);
+                break;
             case "DVDs" :
                 new Emprestavel(nome, quantidade, tipo, autor, ano);
                 break;
@@ -70,6 +74,7 @@ public class Biblioteca {
     private boolean verificaCadastrados(String cpf) {
         for (Cliente cl : clientes){
             if (cl.getCpf().equals(cpf)){
+                System.out.println(cl);
                 return true;
             }
         }
@@ -90,6 +95,7 @@ public class Biblioteca {
     public Item findByNome(String nome){
         for (Item item : itens){
             if (item.getTitulo().equals(nome)){
+                System.out.println(item);
                 return item;
             }
         }
@@ -106,6 +112,7 @@ public class Biblioteca {
         }
 
         Collections.sort(iten);
+        System.out.println(iten);
         return iten;
     }
 
@@ -118,6 +125,7 @@ public class Biblioteca {
         }
 
         Collections.sort(iten);
+        System.out.println(iten);
         return iten;
     }
 
@@ -130,6 +138,7 @@ public class Biblioteca {
         }
 
         Collections.sort(iten);
+        System.out.println(iten);
         return iten;
     }
 
