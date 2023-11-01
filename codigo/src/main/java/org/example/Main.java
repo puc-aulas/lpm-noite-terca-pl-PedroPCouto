@@ -1,13 +1,17 @@
 package org.example;
 
 
+import org.example.entities.Biblioteca;
+import org.example.utils.MockItens;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        Biblioteca biblioteca = new Biblioteca();
+        Biblioteca biblioteca = new Biblioteca("PUC MINAS");
         MockItens mockItens = new MockItens(biblioteca);
         System.out.println("Bem vindo ao sistema de turismo");
         System.out.println("1 - Add mock de itens para teste");
@@ -21,6 +25,7 @@ public class Main {
             switch (repostaUsuario){
                 case "1" -> {
                     System.out.println("Adicionando...");
+                    mockItens.preencheMock();
                 }
                 case "2" -> {
                     System.out.println("Digite o cpf:");
@@ -48,7 +53,7 @@ public class Main {
                 case "4" -> {
                     System.out.println("Digite o cpf: ");
                     String cpf = sc.nextLine();
-                    System.out.println(biblioteca.verificarCadastrados(cpf));
+                    System.out.println(biblioteca.verificaCadastrados(cpf));
                 }
                 case "5" -> {
                     System.out.println("Como gostaria de encontrar seu item?");
@@ -56,12 +61,12 @@ public class Main {
                     System.out.println("2 - Autor");
                     System.out.println("3 - Nome");
                     System.out.println("4 - Tipo");
-                    String resposta2 = sc.nextLine();
-                    switch (resposta2) {
+                    String resposta = sc.nextLine();
+                    switch (resposta) {
                         case "1" -> {
                             System.out.println("Digite o ano");
-                            int resposta2 = sc.nextInt();
-                            biblioteca.findByAno(resposta2);
+                            int resposta1 = sc.nextInt();
+                            biblioteca.findByAno(resposta1);
                         }
                         case "2" -> {
                             System.out.println("Digite o autor");
@@ -70,13 +75,13 @@ public class Main {
                         }
                         case "3" -> {
                             System.out.println("Digite o nome");
-                            String resposta2 = sc.nextLine();
-                            biblioteca.findByNome(resposta2);
+                            String resposta3 = sc.nextLine();
+                            biblioteca.findByNome(resposta3);
                         }
                         case "4" -> {
                             System.out.println("Digite o tipo");
-                            String resposta2 = sc.nextLine();
-                            biblioteca.findByTipo(resposta2);
+                            String resposta4 = sc.nextLine();
+                            biblioteca.findByTipo(resposta4);
                         }
                     }
                 }

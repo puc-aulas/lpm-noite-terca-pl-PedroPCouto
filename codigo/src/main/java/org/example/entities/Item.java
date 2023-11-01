@@ -58,4 +58,12 @@ public abstract class Item implements Comparable<Item>{
         return titulo.compareTo(other.getTitulo());
     }
 
+    @Override
+    public String toString() {
+        return "Titulo: " + titulo + "\n" +
+                "Quantidade: " + quantidade + "\n" +
+                "Tipo: " + tipo + "\n" +
+                "Autor: " + autor + "\n" +
+                "Ano: " + ano + "\n";
+    }
 }

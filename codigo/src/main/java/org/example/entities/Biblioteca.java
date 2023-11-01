@@ -18,6 +18,12 @@ public class Biblioteca {
     private List<Item> itens;
     private List<Cliente> clientes;
 
+    public Biblioteca(String nome) {
+        this.nome = nome;
+        this.itens = new ArrayList<>();
+        this.clientes = new ArrayList<>();
+    }
+
     public boolean cadastrarCliente(String nome, String cpf){
         if (!verificaCadastrados(cpf)){
             clientes.add(new Cliente(nome, cpf));
@@ -42,17 +48,19 @@ public class Biblioteca {
     public void cadastrarItem(String tipo, String nome, int quantidade, String autor, int ano){
         switch (tipo){
             case "Teses" :
-                new NEmprestavel(nome, quantidade, tipo, autor, ano);
+                itens.add(new NEmprestavel(nome, quantidade, tipo, autor, ano));
+                break;
             case "Revistas" :
-                new NEmprestavel(nome, quantidade, tipo, autor, ano);
+                itens.add(new NEmprestavel(nome, quantidade, tipo, autor, ano));
+                break;
             case "Livros" :
-                new Emprestavel(nome, quantidade, tipo, autor, ano);
+                itens.add(new Emprestavel(nome, quantidade, tipo, autor, ano));
                 break;
             case "CDs" :
-                new Emprestavel(nome, quantidade, tipo, autor, ano);
+                itens.add(new Emprestavel(nome, quantidade, tipo, autor, ano));
                 break;
             case "DVDs" :
-                new Emprestavel(nome, quantidade, tipo, autor, ano);
+                itens.add(new Emprestavel(nome, quantidade, tipo, autor, ano));
                 break;
         }
     }
@@ -71,7 +79,7 @@ public class Biblioteca {
         }
     }
 
-    private boolean verificaCadastrados(String cpf) {
+    public boolean verificaCadastrados(String cpf) {
         for (Cliente cl : clientes){
             if (cl.getCpf().equals(cpf)){
                 System.out.println(cl);
@@ -130,7 +138,7 @@ public class Biblioteca {
     }
 
     public List<Item> findByAno(int ano){
-        List iten = new ArrayList();
+        List<Item> iten = new ArrayList();
         for (Item item : itens){
             if (item.getAno() == ano){
                 iten.add(item);
@@ -138,7 +146,9 @@ public class Biblioteca {
         }
 
         Collections.sort(iten);
-        System.out.println(iten);
+        for (Item item : iten){
+            System.out.println(item);
+        }
         return iten;
     }
 
