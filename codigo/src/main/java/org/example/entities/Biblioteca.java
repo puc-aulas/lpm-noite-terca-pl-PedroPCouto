@@ -1,11 +1,7 @@
 package org.example.entities;
 
-import org.example.entities.interfaces.Revistas;
-import org.example.entities.interfaces.Teses;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +27,17 @@ public class Biblioteca {
         }
 
         return false;
+    }
+
+    public List<Emprestavel> retornaItensDisponiveis(){
+        List<Emprestavel> lista = new ArrayList<>();
+        for (Item item : itens){
+            if (item.getTipo().equals("Livros") || item.getTipo().equals("CDs") || item.getTipo().equals("DVDs")){
+                lista.add((Emprestavel) item);
+            }
+        }
+
+        return lista;
     }
 
     public void editaCliente(String cpf, int escolha, String opcao){

@@ -2,9 +2,13 @@ package org.example;
 
 
 import org.example.entities.Biblioteca;
+import org.example.entities.Emprestavel;
+import org.example.entities.Item;
 import org.example.utils.MockItens;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -84,6 +88,30 @@ public class Main {
                             biblioteca.findByTipo(resposta4);
                         }
                     }
+                }
+                case "6" -> {
+                    System.out.print("Digite o CPF do cliente para o empréstimo:");
+                    String nome = sc.nextLine();
+                    System.out.println("Aqui está a lista de livros que temos na biblioteca disponíveis");
+                    List<Emprestavel> emp= new ArrayList<>(biblioteca.retornaItensDisponiveis());
+                    for (Emprestavel itens : emp) {
+                        System.out.println(itens);
+                    }
+
+                    List<Emprestavel> item = new ArrayList<>();
+                    int aux = 1;
+                    do {
+                        System.out.println("Digite o título que deseja fazer o empréstimo");
+                        item.add((Emprestavel) biblioteca.findByNome(sc.nextLine()));
+                        if (aux == 1){
+                            System.out.println("Deseja adicionar mais um livro?");
+                            System.out.println("1 - SIM");
+                            System.out.println("2 - NÃO");
+                            aux = sc.nextInt();
+                        }
+                    } while(aux != 0);
+
+                    biblioteca.emprestarLivro(nome, item);
                 }
 
             }
