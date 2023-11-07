@@ -93,7 +93,7 @@ public class Main {
                     System.out.print("Digite o CPF do cliente para o empréstimo:");
                     String nome = sc.nextLine();
                     System.out.println("Aqui está a lista de livros que temos na biblioteca disponíveis");
-                    List<Emprestavel> emp= new ArrayList<>(biblioteca.retornaItensDisponiveis());
+                    List<Emprestavel> emp = new ArrayList<>(biblioteca.retornaItensDisponiveis());
                     for (Emprestavel itens : emp) {
                         System.out.println(itens);
                     }

@@ -13,6 +13,10 @@ public class Emprestavel extends Item implements Livros, CDs, DVDs, Comparable<I
         super(nome, quantidade, tipo, autor, ano);
     }
 
+    public void addQntImprestaveis(){
+        this.emprestado = this.emprestado + 1;
+    }
+
     public LocalDateTime getDataSaida() {
         return dataSaida;
     }

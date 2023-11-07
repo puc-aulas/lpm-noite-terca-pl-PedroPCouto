@@ -1,9 +1,11 @@
 package org.example.entities;
 
+import javax.sound.midi.SysexMessage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Biblioteca {
 
@@ -177,6 +179,25 @@ public class Biblioteca {
         return verificaData(item).size() > 0;
     }
 
+    public void relatorioEmprestadosPorAno(){
+        List<Emprestavel> listaRel = retornaItensDisponiveis();
+        List<Emprestavel> sortedList = listaRel.stream().sorted((item1, item2) -> item1.getAno() > item2.getAno() ? 1 : 0).toList();
+        for(Emprestavel emp : sortedList){
+            System.out.println(emp.getTitulo() + " - " + emp.getEmprestado() + " - " + emp.getAno());
+        }
+    }
+
+    public void relatorioEmprestadosPorUsuario(){
+        List<Cliente> clientesRel = this.clientes;
+        List<Cliente> sortedList = clientesRel.stream().sorted((item1, item2) -> item1.getNome().compareTo(item2.getNome())).toList();
+        for(Cliente cli : sortedList){
+            System.out.println(cli.getNome());
+            for(Emprestavel emp : cli.getEmprestados()){
+                System.out.println(emp.getTitulo() + " - " + emp.getEmprestado() + " - " + emp.getAno());
+            }
+        }
+    }
+
     private List<String> validaEstoque(List<Emprestavel> emprestaveis){
         List<String> aux = new ArrayList<>();
         for (Item item : emprestaveis){
@@ -208,7 +229,7 @@ public class Biblioteca {
         cliente.getEmprestados().add((Emprestavel) emprestaveis);
 
         for (Emprestavel emp : emprestaveis){
-            itens.remove(((Emprestavel) emprestaveis).getTitulo());
+            emp.addQntImprestaveis();
         }
 
         return "Item emprestado com sucesso";
