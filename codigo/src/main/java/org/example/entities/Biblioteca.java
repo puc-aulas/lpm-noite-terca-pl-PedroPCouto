@@ -192,7 +192,8 @@ public class Biblioteca {
     public String emprestarLivro(String cpf, List<Emprestavel> emprestaveis){
         Cliente cliente = findByCpf(cpf);
 
-        if (emprestimoVencido(cliente.getEmprestados())){
+        System.out.println(emprestaveis);
+        if (cliente.getEmprestados() != null && emprestimoVencido(cliente.getEmprestados())){
             return "Há emprestímos pendentes em sua conta. Devolva primeiro suas pendencias";
         }
 
@@ -205,13 +206,13 @@ public class Biblioteca {
             return "Pegue apenas " + QUANTIDADEMAXIMA + " itens por empréstimo";
         }
 
-        cliente.getEmprestados().add((Emprestavel) emprestaveis);
-
         for (Emprestavel emp : emprestaveis){
-            itens.remove(((Emprestavel) emprestaveis).getTitulo());
+            itens.remove((emp).getTitulo());
+            emp.setDataSaida(LocalDateTime.now());
+            cliente.getEmprestados().add(emp);
         }
 
-        return "Item emprestado com sucesso";
+        return "Iten emprestado com sucesso";
     }
 
     private boolean quantidadeMaxima(List<Emprestavel> emprestaveis) {
