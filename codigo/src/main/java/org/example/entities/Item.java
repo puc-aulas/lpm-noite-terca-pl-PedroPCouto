@@ -11,6 +11,7 @@ public abstract class Item implements Comparable<Item>{
     private String tipo;
     private String autor;
     private int ano;
+    protected int emprestado;
 
     public String getTitulo() {
         return titulo;
@@ -31,6 +32,7 @@ public abstract class Item implements Comparable<Item>{
         this.tipo = tipo;
         this.autor = autor;
         this.ano = ano;
+        this.emprestado = 0;
     }
 
     public void setTitulo(String titulo) {
@@ -65,5 +67,9 @@ public abstract class Item implements Comparable<Item>{
                 "Tipo: " + tipo + "\n" +
                 "Autor: " + autor + "\n" +
                 "Ano: " + ano + "\n";
+    }
+
+    public int getEmprestado() {
+        return this.emprestado;
     }
 }
