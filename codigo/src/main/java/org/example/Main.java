@@ -23,6 +23,7 @@ public class Main {
         System.out.println("3 - Adicionar Item");
         System.out.println("4 - Verificar Cliente");
         System.out.println("5 - Verificar Item");
+        System.out.println("6 - Fazer empréstimo");
         System.out.println("0 - Encerrar");
         String repostaUsuario = sc.nextLine();
         while(!repostaUsuario.equals("0")){
@@ -32,24 +33,25 @@ public class Main {
                     mockItens.preencheMock();
                 }
                 case "2" -> {
-                    System.out.println("Digite o cpf:");
+                    System.out.print("Digite o cpf: ");
                     String cpf = sc.nextLine();
-                    System.out.println("Digite o nome:");
+                    System.out.print("Digite o nome: ");
                     String nome = sc.nextLine();
                     boolean resp = biblioteca.cadastrarCliente(nome, cpf);
                     String resposta = resp ? "Cliente cadastrado" : "Cliente já cadastrado no sistema";
-                    System.out.println(resp);
+                    System.out.println(resposta);
                 }
                 case "3" -> {
-                    System.out.println("Que tipo de item gostaria de adicionar? ");
+                    System.out.print("Que tipo de item gostaria de adicionar? ");
                     String tipo = sc.nextLine();
-                    System.out.println("Nome:");
+                    System.out.print("Nome: ");
                     String nome = sc.nextLine();
-                    System.out.println("Quantidade:");
+                    System.out.print("Quantidade: ");
                     int quantidade = sc.nextInt();
-                    System.out.println("Autor: ");
+                    System.out.print("Autor: ");
                     String autor = sc.nextLine();
-                    System.out.println("Ano: ");
+                    sc.nextLine();
+                    System.out.print("Ano: ");
                     int ano = sc.nextInt();
                     biblioteca.cadastrarItem(tipo, nome, quantidade, autor, ano);
 
@@ -57,7 +59,9 @@ public class Main {
                 case "4" -> {
                     System.out.println("Digite o cpf: ");
                     String cpf = sc.nextLine();
-                    System.out.println(biblioteca.verificaCadastrados(cpf));
+                    if (!biblioteca.verificaCadastrados(cpf)){
+                        System.out.println("Cliente não cadastrado");
+                    }
                 }
                 case "5" -> {
                     System.out.println("Como gostaria de encontrar seu item?");
@@ -99,17 +103,12 @@ public class Main {
                     }
 
                     List<Emprestavel> item = new ArrayList<>();
-                    int aux = 1;
-                    do {
+
                         System.out.println("Digite o título que deseja fazer o empréstimo");
-                        item.add((Emprestavel) biblioteca.findByNome(sc.nextLine()));
-                        if (aux == 1){
-                            System.out.println("Deseja adicionar mais um livro?");
-                            System.out.println("1 - SIM");
-                            System.out.println("2 - NÃO");
-                            aux = sc.nextInt();
-                        }
-                    } while(aux != 0);
+                        String name = sc.nextLine();
+                        Emprestavel emp1 = (Emprestavel) biblioteca.findByNome(name);
+                        item.add(emp1);
+
 
                     biblioteca.emprestarLivro(nome, item);
                 }

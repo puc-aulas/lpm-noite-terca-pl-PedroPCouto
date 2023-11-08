@@ -20,4 +20,8 @@ public class Emprestavel extends Item implements Livros, CDs, DVDs, Comparable<I
     public LocalDateTime getDataSaida() {
         return dataSaida;
     }
+
+    public void setDataSaida(LocalDateTime dataSaida) {
+        this.dataSaida = dataSaida;
+    }
 }

@@ -17,7 +17,6 @@ public class MockItens {
         String[] arrString = myFileReader.read().split("\n");
         for(String s : arrString){
             String[] arrString2 = s.split(";");
-            System.out.println(arrString2[0]);
             this.biblioteca.cadastrarItem(arrString2[3], arrString2[0], 1, arrString2[2], Integer.valueOf(arrString2[1]));
         }
     }
