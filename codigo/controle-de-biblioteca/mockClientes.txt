@@ -1,0 +1,3 @@
+Pedro;09081614681;Ciências da Computação;ACAO
+Valdineia;02584469600;Veterinária;HISTORIA
+Gustavo;12345678900;Medicina;CIENCIAS

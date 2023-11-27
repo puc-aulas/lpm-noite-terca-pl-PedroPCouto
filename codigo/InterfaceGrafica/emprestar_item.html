@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Empréstimo de Item</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Empréstimo de Item</h1>
+  <form id="formEmprestarItem">
+    <label for="nome_item">Nome do Item:</label>
+    <input type="text" id="nome_item" name="nome_item" required><br><br>
+
+    <label for="cpf_cliente">CPF do Cliente:</label>
+    <input type="text" id="cpf_cliente" name="cpf_cliente" required><br><br>
+
+    <label for="data_inicio">Data de Início (DD-MM-YYYY):</label>
+    <input type="text" id="data_inicio" name="data_inicio" placeholder="DD-MM-YYYY" required><br><br>
+
+    <label for="data_fim">Data de Fim (DD-MM-YYYY):</label>
+    <input type="text" id="data_fim" name="data_fim" placeholder="DD-MM-YYYY" required><br><br>
+
+    <input type="submit" value="Emprestar Item">
+  </form>
+  <div id="mensagemResposta" style="display: none;"></div>
+
+  <script>
+    document.getElementById('formEmprestarItem').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nomeItem = document.getElementById('nome_item').value;
+      const cpfCliente = document.getElementById('cpf_cliente').value;
+      const dataInicio = document.getElementById('data_inicio').value;
+      const dataFim = document.getElementById('data_fim').value;
+
+      const data = {
+        titulo: nomeItem,
+        inicio: dataInicio,
+        fim: dataFim,
+        cpf: cpfCliente
+      };
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+
+      fetch('http://localhost:8080/biblioteca/emprestar-item', requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erro ao emprestar o item');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const mensagemResposta = document.getElementById('mensagemResposta');
+          mensagemResposta.style.display = 'block';
+          mensagemResposta.innerHTML = `<p>${data.message}</p>`;
+        });
+    });
+  </script>
+</body>
+</html>

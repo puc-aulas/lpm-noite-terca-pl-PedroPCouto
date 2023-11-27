@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Criar Item</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Criar Item</h1>
+  <form id="formCriarItem">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="autor">Nome do Autor:</label>
+    <input type="text" id="autor" name="autor" required><br><br>
+
+    <label for="data_publicacao">Data de Publicação:</label>
+    <input type="date" id="data_publicacao" name="data_publicacao" required><br><br>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" name="quantidade" required><br><br>
+
+    <label for="genero">Gênero:</label>
+    <select id="genero" name="genero" multiple required>
+      <option value="MATEMATICA">Matemática</option>
+      <option value="ACAO">Ação</option>
+      <option value="CIENCIA">Ciência</option>
+      <option value="HISTORIA">História</option>
+      <option value="FICCAO">Ficção</option>
+    </select><br><br>
+
+    <label for="tipo_item">Tipo de Item:</label>
+    <select id="tipo_item" name="tipo_item" required>
+      <option value="LIVRO">Livro</option>
+      <option value="CD">CD</option>
+      <option value="DVD">DVD</option>
+      <option value="REVISTA">Revista</option>
+      <option value="ARTIGO">Artigo</option>
+    </select><br><br>
+
+    <input type="submit" value="Criar Item">
+  </form>
+  <script>
+    document.getElementById('formCriarItem').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const nomeAutor = document.getElementById('autor').value;
+      const dataPublicacaoInput = document.getElementById('data_publicacao').value;
+      const dataPublicacao = formatDate(dataPublicacaoInput);
+      const quantidade = document.getElementById('quantidade').value;
+      const genero = Array.from(document.getElementById('genero').selectedOptions).map(option => option.value);
+      const tipoItem = document.getElementById('tipo_item').value;
+
+      const data = {
+        nome: nome,
+        nomeAutor: nomeAutor,
+        dataPublicacao: dataPublicacao,
+        quantidade: parseInt(quantidade),
+        genero: genero,
+        itens: tipoItem
+      };
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+
+      fetch('http://localhost:8080/biblioteca/add-item', requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erro ao criar o item');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Item criado com sucesso:', data);
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+    });
+
+    function formatDate(date) {
+        const parsedDate = new Date(date);
+        const day = parsedDate.getDate().toString().padStart(2, '0');
+        const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+        const year = parsedDate.getFullYear();
+        return `${day}-${month}-${year}`;
+      }
+  </script>
+</body>
+</html>

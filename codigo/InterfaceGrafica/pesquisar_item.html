@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesquisar Item</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Pesquisar Item</h1>
+  <form id="formPesquisarItem">
+    <label for="nome_item">Nome do Item:</label>
+    <input type="text" id="nome_item" name="nome_item" required><br><br>
+
+    <input type="submit" value="Buscar Item">
+  </form>
+
+  <div id="itemInfo" style="display: none;">
+    <h2>Informações do Item</h2>
+    <p><strong>Nome:</strong> <span id="infoNome"></span></p>
+    <p><strong>Autor:</strong> <span id="infoAutor"></span></p>
+    <p><strong>Data de Publicação:</strong> <span id="infoData"></span></p>
+    <p><strong>Quantidade:</strong> <span id="infoQuantidade"></span></p>
+    <p><strong>Gênero:</strong> <span id="infoGenero"></span></p>
+    <p><strong>Tipo de Item:</strong> <span id="infoTipo"></span></p>
+  </div>
+
+  <script>
+    document.getElementById('formPesquisarItem').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nomeItem = document.getElementById('nome_item').value;
+
+      const data = {
+        titulo: nomeItem
+      };
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+
+      fetch('http://localhost:8080/biblioteca/get-item', requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Item não encontrado');
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById('infoNome').innerText = data.nome;
+          document.getElementById('infoAutor').innerText = data.nomeAutor;
+          document.getElementById('infoData').innerText = data.dataPublicacao;
+          document.getElementById('infoQuantidade').innerText = data.quantidade;
+          document.getElementById('infoGenero').innerText = data.genero.join(', ');
+          document.getElementById('infoTipo').innerText = data.itens;
+          document.getElementById('itemInfo').style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+          alert('Item não encontrado');
+          document.getElementById('itemInfo').style.display = 'none';
+        });
+    });
+  </script>
+</body>
+</html>

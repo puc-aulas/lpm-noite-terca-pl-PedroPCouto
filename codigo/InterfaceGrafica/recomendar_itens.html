@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Recomendar Itens</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Recomendar Itens</h1>
+  <form id="formRecomendarItens">
+    <label for="cpf_cliente">CPF do Cliente:</label>
+    <input type="text" id="cpf_cliente" name="cpf_cliente" required><br><br>
+
+    <input type="submit" value="Obter Recomendações">
+  </form>
+
+  <div id="recomendacoesItens"></div>
+
+  <script>
+    document.getElementById('formRecomendarItens').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const cpfCliente = document.getElementById('cpf_cliente').value;
+
+      fetch(`http://localhost:8080/biblioteca/sugestao/${cpfCliente}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erro ao obter recomendações de itens');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const recomendacoesItens = document.getElementById('recomendacoesItens');
+          recomendacoesItens.innerHTML = '';
+
+          if (data.length === 0) {
+            recomendacoesItens.innerHTML = '<p>Nenhum item recomendado para este cliente.</p>';
+          } else {
+            const listaItens = document.createElement('ul');
+
+            data.forEach(item => {
+              const itemLi = document.createElement('li');
+              itemLi.innerHTML = `<strong>Nome:</strong> ${item.nome}<br>
+                                  <strong>Autor:</strong> ${item.nomeAutor}<br>
+                                  <strong>Data de Publicação:</strong> ${item.dataPublicacao}<br>
+                                  <strong>Quantidade:</strong> ${item.quantidade}<br>
+                                  <strong>Gênero:</strong> ${item.genero.join(', ')}<br>
+                                  <strong>Tipo de Item:</strong> ${item.itens}<br><br>`;
+              listaItens.appendChild(itemLi);
+            });
+
+            recomendacoesItens.appendChild(listaItens);
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+          const recomendacoesItens = document.getElementById('recomendacoesItens');
+          recomendacoesItens.innerHTML = '<p>Erro ao obter recomendações de itens</p>';
+        });
+    });
+  </script>
+</body>
+</html>

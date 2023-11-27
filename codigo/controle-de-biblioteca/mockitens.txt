@@ -1,0 +1,4 @@
+Harry Potter e a Padra Filosofal;01-01-1990;Jk Rolling;LIVRO;FICCAO,DRAMA
+Mob Dick;01-01-1800;Pescador;LIVRO;DRAMA,ACAO
+Musicas Muito Legais;01-01-2002;Mc Gugu;CD;OUTROS
+International Magazine;01-01-2023;Cientista Teste;REVISTA;CIENCIAS
