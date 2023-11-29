@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockItens {
-    private static final String fileNameItens = "C:\\Users\\Brigh\\Desktop\\controle-de-biblioteca\\mockitens.txt";
-    private static final String fileNameClientes = "C:\\Users\\Brigh\\Desktop\\controle-de-biblioteca\\mockClientes.txt";
+    private static final String fileNameItens = "C:\\Users\\pedro.couto_evoluaen\\Desktop\\lpm-noite-terca-pl-PedroPCouto\\codigo\\controle-de-biblioteca\\mockitens.txt";
+    private static final String fileNameClientes = "C:\\Users\\pedro.couto_evoluaen\\Desktop\\lpm-noite-terca-pl-PedroPCouto\\codigo\\controle-de-biblioteca\\mockClientes.txt";
     private MyFileReader myFileReaderItens;
     private MyFileReader myFileReaderClientes;
     private Biblioteca biblioteca;
@@ -38,7 +38,7 @@ public class MockItens {
             for(String stt : generosString){
                 generosList.add(Generos.valueOf(stt));
             }
-            this.biblioteca.criarItemBiblioteca(nome, nomeAutor, dataConvertida, 2, tipoConvertido, generosList);
+            this.biblioteca.criarItemBiblioteca(nome, nomeAutor, dataConvertida, 3, tipoConvertido, generosList);
         }
     }
 

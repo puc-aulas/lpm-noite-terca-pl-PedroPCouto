@@ -1,4 +1,6 @@
 Harry Potter e a Padra Filosofal;01-01-1990;Jk Rolling;LIVRO;FICCAO,DRAMA
+Harry Potter e Calice de Fogo Maluco;01-01-1990;Jk Rolling;LIVRO;FICCAO,DRAMA
+Clean Code;01-08-2008;Robert Cecil Martin;LIVRO;HARDWARE,INFORMATICA
 Mob Dick;01-01-1800;Pescador;LIVRO;DRAMA,ACAO
 Musicas Muito Legais;01-01-2002;Mc Gugu;CD;OUTROS
 International Magazine;01-01-2023;Cientista Teste;REVISTA;CIENCIAS

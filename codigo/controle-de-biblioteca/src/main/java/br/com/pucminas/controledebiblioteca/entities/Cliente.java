@@ -1,5 +1,6 @@
 package br.com.pucminas.controledebiblioteca.entities;
 
+import br.com.pucminas.controledebiblioteca.adapters.CursoAdapter;
 import br.com.pucminas.controledebiblioteca.enums.Generos;
 import br.com.pucminas.controledebiblioteca.exceptions.ClienteExcessoEmprestimosException;
 import br.com.pucminas.controledebiblioteca.exceptions.ClienteJaPossuiItemException;
@@ -7,7 +8,9 @@ import br.com.pucminas.controledebiblioteca.exceptions.ClientePossuiAtrasoExcept
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class Cliente {
@@ -17,7 +20,7 @@ public class Cliente {
     private String nome;
     private String curso;
     private List<Emprestimo> emprestimosPassados;
-    private Generos generosInteresse;
+    private List<Generos> generosInteresse;
     public List<Emprestimo> getEmprestimosEmVigorList() {
         return emprestimosEmVigor;
     }
@@ -59,7 +62,9 @@ public class Cliente {
         this.cpf = cpf;
         this.nome = nome;
         this.curso = curso;
-        this.generosInteresse = interesses;
+        List<Generos> generosPorCurso = CursoAdapter.adptCursoToInteresses(curso);
+        generosPorCurso.add(interesses);
+        this.generosInteresse = generosPorCurso;
         this.emprestimosEmVigor = new ArrayList<>();
         this.emprestimosPassados = new ArrayList<>();
     }
@@ -87,15 +92,14 @@ public class Cliente {
 
     }
 
-    public List<Generos> getInteressesCliente() {
-        List<Generos> interesses = new ArrayList<>();
-        for(Emprestimo emp : emprestimosEmVigor){
-            interesses.addAll(emp.getItem().getGeneros());
+    public Set<Generos> getInteressesCliente() {
+        Set<Generos> generosDoCliente = new HashSet<>(this.generosInteresse);
+        for(Emprestimo emp : this.emprestimosPassados){
+            generosDoCliente.addAll(emp.getItem().getGeneros());
         }
-        for(Emprestimo emp : emprestimosPassados){
-            interesses.addAll(emp.getItem().getGeneros());
+        for(Emprestimo emp : this.emprestimosEmVigor){
+            generosDoCliente.addAll(emp.getItem().getGeneros());
         }
-        interesses.add(generosInteresse);
-        return interesses;
+        return generosDoCliente;
     }
 }

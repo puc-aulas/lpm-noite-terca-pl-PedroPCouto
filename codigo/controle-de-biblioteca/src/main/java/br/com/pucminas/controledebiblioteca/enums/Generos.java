@@ -10,6 +10,10 @@ public enum Generos {
     FICCAO_CIENTIFICA("FICCAO CIENTIFICA"),
     FICCAO("FICCAO"),
     ACAO("ACAO"),
+    INFORMATICA("INFORMATICA"),
+    HARDWARE("HARDWARE"),
+    VETERINARIA("VETERINARIA"),
+    MEDICINA("MEDICINA"),
     OUTROS("OUTROS");
 
     private String genero;

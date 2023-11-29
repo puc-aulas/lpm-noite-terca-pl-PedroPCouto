@@ -19,6 +19,6 @@ public class AddClienteRequestDTO {
         this.cpf = cliente.getCpf();
         this.nome = cliente.getNome();
         this.curso = cliente.getCurso();
-        this.interesses = cliente.getInteressesCliente().get(0).getGenero();
+        this.interesses = cliente.getInteressesCliente().iterator().next().getGenero();
     }
 }

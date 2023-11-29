@@ -5,9 +5,7 @@ import br.com.pucminas.controledebiblioteca.enums.Itens;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class Biblioteca {
@@ -126,12 +124,30 @@ public class Biblioteca {
         }
     }
 
-    public List<ItemBiblioteca> sugerirItens(String cpf) {
+    public Set<ItemBiblioteca> sugerirItens(String cpf) {
         Cliente cliente = findClienteByCpf(cpf);
-        List<Generos> interessesCliente = cliente.getInteressesCliente();
-        List<ItemBiblioteca> itensPorGenero = this.controller.obterItensPorGenero(interessesCliente);
+        Set<Generos> interessesCliente = cliente.getInteressesCliente();
+        Set<ItemBiblioteca> itensPorGenero = this.controller.obterItensPorGenero(interessesCliente);
         return itensPorGenero;
     }
 
+    public List<Emprestimo> relatorioEmprestadosPorUsuario(){
+        List<Cliente> clientesRel = this.clienteList;
+        List<Cliente> sortedList = clientesRel.stream().sorted((item1, item2) -> item1.getNome().compareTo(item2.getNome())).toList();
+        List<Emprestimo> emprestimos = new ArrayList<>();
+        for(Cliente cli : sortedList){
+            emprestimos.addAll(cli.getEmprestimosEmVigor());
+        }
+        return emprestimos;
+    }
+    public List<ItemEmprestavel> relatorioEmprestadosPorAno(){
+        List<Emprestimo> listaRel = this.emprestimoList;
+        List<Emprestimo> sortedList = listaRel.stream().sorted(Comparator.comparing(item -> item.getItem().getDataPublicacao())).toList();
+        List<ItemEmprestavel> itensEmprestados = new ArrayList<>();
+        for(Emprestimo emp : sortedList){
+            itensEmprestados.add(emp.getItem());
+        }
+        return itensEmprestados;
+    }
 
 }

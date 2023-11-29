@@ -6,10 +6,7 @@ import br.com.pucminas.controledebiblioteca.exceptions.ItemNaoEncontradoExceptio
 import br.com.pucminas.controledebiblioteca.factories.ItemBibliotecaFactory;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ItemBibliotecaController {
     List<ItemEmprestavel> itensEmprestaveis;
@@ -95,8 +92,8 @@ public class ItemBibliotecaController {
         return itensTotais.stream().sorted(Comparator.comparing(i -> i.getTipo().getTipo())).toList();
     }
 
-    public List<ItemBiblioteca> obterItensPorGenero(List<Generos> generosList){
-        List<ItemBiblioteca> itensFiltrados = new ArrayList<>();
+    public Set<ItemBiblioteca> obterItensPorGenero(Set<Generos> generosList){
+        Set<ItemBiblioteca> itensFiltrados = new HashSet<>();
         for(ItemBiblioteca item : this.itensEmprestaveis){
             List<Generos> generosItem = item.getGeneros();
             for(Generos gen : generosList){

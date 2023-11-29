@@ -2,9 +2,7 @@ package br.com.pucminas.controledebiblioteca.controllers;
 
 
 import br.com.pucminas.controledebiblioteca.dtos.*;
-import br.com.pucminas.controledebiblioteca.entities.Biblioteca;
-import br.com.pucminas.controledebiblioteca.entities.Cliente;
-import br.com.pucminas.controledebiblioteca.entities.ItemBiblioteca;
+import br.com.pucminas.controledebiblioteca.entities.*;
 import br.com.pucminas.controledebiblioteca.enums.Generos;
 import br.com.pucminas.controledebiblioteca.enums.Itens;
 import br.com.pucminas.controledebiblioteca.utils.MockItens;
@@ -17,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/biblioteca")
@@ -76,11 +75,23 @@ public class BibliotecaController {
 
     @GetMapping("/sugestao/{cpf}")
     public ResponseEntity<List<AddTituloResquestDTO>> recomendarTitulos(@PathVariable String cpf){
-        List<ItemBiblioteca> itens = service.sugerirItens(cpf);
+        Set<ItemBiblioteca> itens = service.sugerirItens(cpf);
         List<AddTituloResquestDTO> response = new ArrayList<>();
         for(ItemBiblioteca item : itens){
             response.add(new AddTituloResquestDTO(item.getNome(), item.getNomeAutor(), String.valueOf(item.getDataPublicacao()), item.getQuantidade(), item.getGeneros(), item.getTipo().getTipo()));
         }
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/relatorio-emprestimos-usuario")
+    public ResponseEntity<List<Emprestimo>> relatorioEmprestimos(){
+        List<Emprestimo> emprestimos = this.service.relatorioEmprestadosPorUsuario();
+        return ResponseEntity.ok().body(emprestimos);
+    }
+
+    @GetMapping("/relatorio-emprestimos-ano")
+    public ResponseEntity<List<ItemEmprestavel>> relatorioEmprestimosPorAno(){
+        List<ItemEmprestavel> itens = this.service.relatorioEmprestadosPorAno();
+        return ResponseEntity.ok().body(itens);
     }
 }
